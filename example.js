@@ -5,6 +5,7 @@ const client = redis.newClient();
 export function setup() {
   redis.set(client,"snake","camel",0)
   redis.set(client,"foo",100,10)
+  //redis.saad(client,"saad1","test message",10)
 }
 
 export default function () {
@@ -16,5 +17,5 @@ export default function () {
 }
 
 export function teardown () {
-  redis.del(client,"foo")
+  //redis.del(client,"foo")
 }

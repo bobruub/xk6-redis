@@ -17,7 +17,7 @@ type REDIS struct{}
 // NewClient creates a new Redis client
 func (*REDIS) NewClient(addr string, password string, bd int) *redis.Client {
 	if addr == "" {
-		addr = "localhost:6379"
+		addr = "localhost:6378"
 	}
 	return redis.NewClient(&redis.Options{
 		Addr:     addr,
@@ -38,6 +38,7 @@ func (*REDIS) Set(client *redis.Client, key string, value interface{}, expiratio
 // Get gets a key/value
 func (*REDIS) Get(client *redis.Client, key string) string {
 	val, err := client.Get(key).Result()
+	
 	if err != nil {
 		ReportError(err, "Failed to get the specified key")
 	}
