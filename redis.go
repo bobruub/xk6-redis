@@ -16,7 +16,6 @@ type REDIS struct{}
 
 // NewClient creates a new Redis client
 func (*REDIS) NewClient(addr string, password string, bd int) *redis.Client {
-	fmt.Println("localhost:6379")
 	if addr == "" {
 		addr = "localhost:6379"
 	}
