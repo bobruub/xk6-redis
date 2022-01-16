@@ -4,6 +4,7 @@ import (
 	"time"
 	"github.com/go-redis/redis"
 	"go.k6.io/k6/js/modules"
+	"fmt"
 )
 
 func init() {
