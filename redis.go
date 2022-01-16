@@ -16,8 +16,9 @@ type REDIS struct{}
 
 // NewClient creates a new Redis client
 func (*REDIS) NewClient(addr string, password string, bd int) *redis.Client {
+	fmt.Println("localhost:6379")
 	if addr == "" {
-		addr = "localhost:6378"
+		addr = "localhost:6379"
 	}
 	return redis.NewClient(&redis.Options{
 		Addr:     addr,
@@ -54,9 +55,9 @@ func (*REDIS) Del(client *redis.Client, key string) {
 }
 
 // Set adds a key/value
-func (*REDIS) Sadd(client *redis.Client, key string, value interface{}, expiration time.Duration) {
+func (*REDIS) sadd(client *redis.Client, key string, value interface{}, expiration time.Duration) {
 	// TODO: Make expiration configurable. Or document somewhere the unit.
-	err := client.Saad(key, value, expiration*time.Second).Err()
+	err := client.saad(key, value, expiration*time.Second).Err()
 	if err != nil {
 		ReportError(err, "Failed to sadd the specified key/value pair")
 	}
