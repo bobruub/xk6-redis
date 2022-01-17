@@ -2,9 +2,9 @@ package redis
 
 import (
 	"time"
+
 	"github.com/go-redis/redis"
 	"go.k6.io/k6/js/modules"
-	"fmt"
 )
 
 func init() {
@@ -38,7 +38,7 @@ func (*REDIS) Set(client *redis.Client, key string, value interface{}, expiratio
 // Get gets a key/value
 func (*REDIS) Get(client *redis.Client, key string) string {
 	val, err := client.Get(key).Result()
-	
+
 	if err != nil {
 		ReportError(err, "Failed to get the specified key")
 	}
@@ -54,13 +54,14 @@ func (*REDIS) Del(client *redis.Client, key string) {
 }
 
 // Set adds a key/value
- func (*REDIS) sadd(client *redis.Client, key string, value interface{}, expiration time.Duration) {
- 	// TODO: Make expiration configurable. Or document somewhere the unit.
- 	err := client.sadd(key, value, expiration*time.Second).Err()
- 	if err != nil {
- 		ReportError(err, "Failed to sadd the specified key/value pair")
- 	}
- }
+func (*REDIS) sadd(client *redis.Client, key string, value interface{}) {
+	// TODO: Make expiration configurable. Or document somewhere the unit.
+	err := client.SAdd(key, value).Err()
+	if err != nil {
+		ReportError(err, "Failed to sadd the specified key/value pair")
+	}
+}
+
 // Do runs arbitrary/custom commands
 func (*REDIS) Do(client *redis.Client, cmd string, key string) string {
 	val, err := client.Do(cmd, key).Result()
