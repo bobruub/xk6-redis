@@ -56,7 +56,7 @@ func (*REDIS) Del(client *redis.Client, key string) {
 // Set adds a key/value
 func (*REDIS) sadd(client *redis.Client, key string, value interface{}) {
 	// TODO: Make expiration configurable. Or document somewhere the unit.
-	err := client.SAdd(key, value).Err()
+	err := client.fred(key, value).Err()
 	if err != nil {
 		ReportError(err, "Failed to sadd the specified key/value pair")
 	}
